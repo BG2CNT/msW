@@ -24,13 +24,15 @@ DEFINES		:=
 # Libraries
 # ---------
 
-LIBDIRS		:=
+LIBS		+= -lmm9 -lnds9 -lc
+LIBDIRS		+= $(BLOCKSDS)/libs/libnds \
+		   $(BLOCKSDS)/libs/maxmod
 
 # Build artifacts
 # ---------------
 
-NAME		:= test
-INSTALLNAME	:= library_arm9_only
+NAME		:= msw
+INSTALLNAME	:= msw
 BUILDDIR	:= build/$(NAME)
 ARCHIVE		:= lib/lib$(NAME).a
 
