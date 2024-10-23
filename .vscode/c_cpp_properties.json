@@ -1,0 +1,33 @@
+{
+  "configurations": [
+    {
+      "name": "Nintendo DS",
+      "includePath": [
+        "${workspaceFolder}/**",
+        "/opt/blocksds/core/libs/libnds/include/**",
+        "/opt/blocksds/core/libs/maxmod/include",
+        "/opt/blocksds/external/nflib/include/**",
+        "${workspaceFolder}/build/maxmod/**"
+      ],
+      "defines": [
+        "ARM9"
+      ],
+      "browse": {
+        "path": [
+          "${workspaceFolder}/**",
+          "/opt/blocksds/core/libs/libnds/include/**",
+          "/opt/blocksds/core/libs/maxmod/include",
+          "/opt/blocksds/external/nflib/include/**",
+          "${workspaceFolder}/build/maxmod/**"
+        ],
+        "limitSymbolsToIncludedHeaders": true,
+        "databaseFilename": ""
+      },
+      "cStandard": "gnu11",
+      "cppStandard": "gnu++14",
+      "compilerPath": "/opt/wonderful/toolchain/gcc-arm-none-eabi/bin/arm-none-eabi-gcc",
+      "intelliSenseMode": "linux-gcc-arm"
+    }
+  ],
+  "version": 4
+}
