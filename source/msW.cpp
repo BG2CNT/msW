@@ -94,14 +94,13 @@ mm_stream_formats getMMStreamType(uint16_t numChannels, uint16_t bitsPerSample)
 bool MSWLoadWav(const char* Location) {
     wavFile = fopen(Location, "rb");
 
-
     wavHeader = {0};
 
     if(fread(&wavHeader, 1, sizeof(WAVHeader_t), wavFile) == 0) {
-        exit(1);
+        return 1;
     }
     if(checkWAVHeader(wavHeader) != 0) {
-        exit(1);
+        return 1;
     }
 
     stream.sampling_rate = wavHeader.sampleRate;
