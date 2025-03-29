@@ -29,7 +29,7 @@ typedef struct WAVHeader {
 static WAVHeader_t wavHeader;
 
 
-static FILE *wavFile = NULL;
+static FILE *wavFile = nullptr;
 static mm_stream stream;
 
 
@@ -47,7 +47,7 @@ static mm_word streamingCallback(mm_word length, mm_addr dest, mm_stream_formats
     return res;
 }
 
-int checkWAVHeader(const WAVHeader_t header) {
+static int checkWAVHeader(const WAVHeader_t header) {
     if(header.chunkID != RIFF_ID) {
         printf("Wrong RIFF_ID %lx\n", header.chunkID);
         return 1;
@@ -72,8 +72,7 @@ int checkWAVHeader(const WAVHeader_t header) {
 }
 
 
-mm_stream_formats getMMStreamType(uint16_t numChannels, uint16_t bitsPerSample)
-{
+static mm_stream_formats getMMStreamType(uint16_t numChannels, uint16_t bitsPerSample) {
     if (numChannels == 1) {
         if (bitsPerSample == 8) {
             return MM_STREAM_8BIT_MONO;
@@ -91,9 +90,12 @@ mm_stream_formats getMMStreamType(uint16_t numChannels, uint16_t bitsPerSample)
 }
 
 
-bool MSWLoadWav(const char* Location) {
-    wavFile = fopen(Location, "rb");
+bool msW::loadWav(const char* path) {
+    wavFile = fopen(path, "rb");
 
+    if(wavFile == nullptr) {
+        return 1;
+    }
     wavHeader = {0};
 
     if(fread(&wavHeader, 1, sizeof(WAVHeader_t), wavFile) == 0) {
@@ -116,7 +118,8 @@ bool MSWLoadWav(const char* Location) {
 }
 
 
-void MSWEndWav() {
+void msW::endWav() {
     mmStreamClose();
     fclose(wavFile);
+    wavFile = nullptr;
 }

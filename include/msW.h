@@ -11,18 +11,22 @@
 #ifndef MSW_H
 #define MSW_H
 
-/*
-    Loads and start WAV streaming.
+namespace msW {
+    
+    /*
+        Loads and start WAV streaming.
+    
+        @param Location Location to wav in nitroFS.
+    
+        @return Returns 1 if failed.
+    */
+    bool loadWav(const char* Location);
+    
+    /*
+        End wav streaming :)
+    */
+    void endWav();
 
-    @param Location Location to wav in nitroFS.
-
-    @return Returns 1 if failed.
-*/
-bool MSWLoadWav(const char* Location);
-
-/*
-    End wav streaming :)
-*/
-void MSWEndWav();
-
+}
+    
 #endif
