@@ -26,16 +26,17 @@ typedef struct WAVHeader {
     uint32_t subchunk2ID;
     uint32_t subchunk2Size;
 } WAVHeader_t;
-static WAVHeader_t wavHeader;
+static WAVHeader_t wavHeader = {0};
 
 
 static FILE *wavFile = nullptr;
-static mm_stream stream;
+static mm_stream stream = {0};
 
 
 static mm_word streamingCallback(mm_word length, mm_addr dest, mm_stream_formats format) {
     // This is mono not stereo :P
-    int res = fread(dest, 2, length, wavFile);
+    int res = 0;
+    res = fread(dest, 2, length, wavFile);
 
     if(feof(wavFile)) {
         // Loop back when song ends
@@ -91,9 +92,10 @@ static mm_stream_formats getMMStreamType(uint16_t numChannels, uint16_t bitsPerS
 
 
 bool msW::loadWav(const char* path) {
+    if(path == NULL or path == nullptr) return 1;
     wavFile = fopen(path, "rb");
 
-    if(wavFile == nullptr) {
+    if(wavFile == nullptr or wavFile == NULL) {
         return 1;
     }
     wavHeader = {0};
@@ -111,7 +113,7 @@ bool msW::loadWav(const char* path) {
     stream.format        = getMMStreamType(wavHeader.numChannels,
                                            wavHeader.bitsPerSample);
     stream.timer         = MM_TIMER0;
-    stream.manual        = false;
+    stream.manual        = true;
     mmStreamOpen(&stream);
 
     return 0;
@@ -119,6 +121,7 @@ bool msW::loadWav(const char* path) {
 
 
 void msW::endWav() {
+    if(wavFile == nullptr) return;
     mmStreamClose();
     fclose(wavFile);
     wavFile = nullptr;
