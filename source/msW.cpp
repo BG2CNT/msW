@@ -29,7 +29,7 @@ typedef struct WAVHeader {
 static WAVHeader_t wavHeader = {0};
 
 
-static FILE *wavFile = nullptr;
+static FILE *wavFile = NULL;
 static mm_stream stream = {0};
 
 
@@ -121,8 +121,8 @@ bool msW::loadWav(const char* path) {
 
 
 void msW::endWav() {
-    if(wavFile == nullptr) return;
+    if(wavFile == NULL) return;
     mmStreamClose();
     fclose(wavFile);
-    wavFile = nullptr;
+    wavFile = NULL;
 }
