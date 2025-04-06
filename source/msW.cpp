@@ -95,7 +95,7 @@ bool msW::loadWav(const char* path) {
     if(path == NULL or path == nullptr) return 1;
     wavFile = fopen(path, "rb");
 
-    if(wavFile == nullptr or wavFile == NULL) {
+    if(wavFile == NULL) {
         return 1;
     }
     wavHeader = {0};
